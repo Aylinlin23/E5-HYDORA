@@ -1,279 +1,286 @@
-# Hydora Frontend
+# Hydora Backend
 
-Plataforma web para reportar y gestionar problemas en la ciudad con roles diferenciados para ciudadanos y autoridades.
+Backend para la aplicación Hydora que permite a ciudadanos reportar fugas o desvíos de agua con fotos y geolocalización, y a autoridades gestionarlos.
 
-## 🚀 Inicio Rápido
+## Características
 
-### Prerrequisitos
-- Node.js 16+ 
-- npm o yarn
+- 🔐 Autenticación JWT segura
+- 👥 Sistema de roles (ADMIN, AUTHORITY, CITIZEN)
+- 📝 CRUD completo de reportes
+- 📍 Geolocalización de reportes
+- 📸 Soporte para múltiples fotos
+- 📊 Paginación y filtros
+- 📚 Documentación automática con Swagger
+- 🗄️ Base de datos PostgreSQL con Prisma ORM
 
-### Instalación
-```bash
-# Instalar dependencias
-npm install
+## Tecnologías
 
-# Configurar variables de entorno
-cp .env.example .env.local
-# Editar .env.local con la URL del backend
+- **Node.js** - Runtime de JavaScript
+- **Express.js** - Framework web
+- **PostgreSQL** - Base de datos
+- **Prisma** - ORM
+- **JWT** - Autenticación
+- **bcrypt** - Encriptación de contraseñas
+- **Swagger** - Documentación de API
 
-# Iniciar servidor de desarrollo
-npm run dev
-```
+## Instalación
 
-La aplicación estará disponible en `http://localhost:5173`
+1. **Clonar el repositorio**
+   ```bash
+   git clone <repository-url>
+   cd backend
+   ```
 
-## 👥 Roles de Usuario
+2. **Instalar dependencias**
+   ```bash
+   npm install
+   ```
 
-### Ciudadano
-- **Email:** ciudadano@test.com
-- **Password:** password123
-- **Funciones:**
-  - Crear reportes de problemas
-  - Ver estado de reportes propios
-  - Explorar mapa de reportes
-  - Recibir notificaciones
+3. **Configurar variables de entorno**
+   ```bash
+   # Copiar el archivo de ejemplo
+   cp .env.example .env
+   
+   # Editar .env con tus configuraciones
+   ```
 
-### Autoridad
-- **Email:** autoridad@test.com  
-- **Password:** password123
-- **Funciones:**
-  - Gestionar reportes asignados
-  - Filtrar y buscar reportes
-  - Cambiar estados de reportes
-  - Ver dashboard con métricas
-  - Exportar datos
+4. **Configurar la base de datos**
+   ```bash
+   # Generar el cliente de Prisma
+   npx prisma generate
+   
+   # Ejecutar migraciones
+   npx prisma migrate dev --name init
+   
+   # Crear usuarios de prueba
+   npm run seed
+   ```
 
-### Administrador
-- **Email:** admin@test.com
-- **Password:** password123
-- **Funciones:**
-  - Todas las funciones de autoridad
-  - Gestión de usuarios
-  - Configuración del sistema
+5. **Iniciar el servidor**
+   ```bash
+   # Desarrollo
+   npm run dev
+   
+   # Producción
+   npm start
+   ```
 
-## 🎯 Flujo de Demo
+## Variables de Entorno
 
-### 1. Crear Reporte (Ciudadano)
-1. Inicia sesión como ciudadano
-2. Ve a "Crear Reporte"
-3. Completa el formulario con:
-   - Ubicación (selecciona en el mapa)
-   - Descripción del problema
-   - Categoría
-   - Fotos (opcional)
-4. Envía el reporte
+Crea un archivo `.env` en la raíz del proyecto:
 
-### 2. Gestionar Reporte (Autoridad)
-1. Cierra sesión e inicia como autoridad
-2. Ve a "Gestión de Reportes"
-3. Encuentra el reporte creado
-4. Asigna el reporte a una autoridad
-5. Cambia el estado a "En Proceso"
-6. Agrega comentarios
-
-### 3. Probar Notificaciones
-1. Ve a "Prueba Notificaciones"
-2. Prueba diferentes tipos de alertas
-3. Verifica comentarios en tiempo real
-4. Prueba el sistema de notificaciones push
-
-### 4. Explorar Dashboard
-1. Ve al "Dashboard"
-2. Revisa métricas y gráficos
-3. Prueba la exportación de datos
-4. Explora el mapa de zonas críticas
-
-## 🛠️ Tecnologías
-
-- **React 18** - Framework principal
-- **React Router** - Navegación
-- **Context API** - Estado global
-- **Leaflet** - Mapas interactivos
-- **Recharts** - Gráficos y métricas
-- **CSS Variables** - Sistema de diseño
-- **Intersection Observer** - Lazy loading
-
-## 🎨 Sistema de Diseño
-
-### Colores
-- **Primario:** #1F6FEB (Azul)
-- **Secundario:** #22C55E (Verde)
-- **Error:** #EF4444 (Rojo)
-- **Advertencia:** #F59E0B (Amarillo)
-
-### Tipografía
-- **Familia:** Inter
-- **Escalas:** H1 (32px), H2 (24px), H3 (20px), Body (16px)
-
-### Espaciado
-- **Base:** 8px
-- **Escalas:** 8px, 16px, 24px, 32px, 48px
-
-## 📱 Características
-
-### Responsive Design
-- Adaptación automática a móviles
-- Sidebar colapsable en pantallas pequeñas
-- Mapas full screen en dispositivos móviles
-
-### Dark Mode
-- Toggle automático en navegación
-- Detección de preferencia del sistema
-- Persistencia en localStorage
-
-### Accesibilidad
-- Navegación por teclado
-- ARIA labels y roles
-- High contrast mode
-- Reduced motion support
-
-### Performance
-- Lazy loading de componentes
-- Debounce en búsquedas
-- Memoización con React hooks
-- Intersection Observer para carga
-
-## 🔍 Búsqueda Global
-
-La búsqueda global permite encontrar:
-- **Reportes** por ID o descripción
-- **Ubicaciones** por nombre de zona
-- **Usuarios** por nombre o rol
-
-**Atajos de teclado:**
-- `↑/↓` - Navegar resultados
-- `Enter` - Seleccionar resultado
-- `Escape` - Cerrar búsqueda
-
-## 🗺️ Mapas Interactivos
-
-### Funcionalidades
-- **Clustering** de reportes cercanos
-- **Heatmap** de densidad de problemas
-- **Marcadores** diferenciados por estado
-- **Filtros** en tiempo real
-- **"Reportar aquí"** con ubicación automática
-
-### Estados de Marcadores
-- 🔴 **Rojo:** Sin atender
-- 🟡 **Amarillo:** En proceso  
-- 🟢 **Verde:** Resuelto
-- ⚡ **Pulso:** Crítico (>48h)
-
-## 📊 Dashboard
-
-### Métricas Principales
-- Tiempo promedio de resolución
-- Reportes críticos pendientes
-- Distribución por estado
-- Zonas con más problemas
-
-### Exportación
-- **PDF:** Resumen ejecutivo
-- **CSV:** Datos crudos para análisis
-- **Filtros:** Por fecha, estado, zona
-
-## 🔔 Notificaciones
-
-### Tipos
-- **Push:** Tiempo real (Firebase)
-- **Toast:** Alertas temporales
-- **Email:** Resúmenes diarios
-
-### Eventos
-- Nuevo reporte asignado
-- Cambio de estado
-- Nuevo comentario
-- Reporte crítico (>48h)
-
-## 🧪 Testing
-
-### Prueba de Notificaciones
-1. Ve a `/test-notifications`
-2. Prueba diferentes tipos de alertas
-3. Verifica comentarios en tiempo real
-4. Prueba notificaciones push
-
-### Usuarios de Prueba
-```bash
-# Ciudadano
-Email: ciudadano@test.com
-Password: password123
-
-# Autoridad  
-Email: autoridad@test.com
-Password: password123
-
-# Admin
-Email: admin@test.com
-Password: password123
-```
-
-## 📁 Estructura del Proyecto
-
-```
-src/
-├── components/          # Componentes reutilizables
-│   ├── UI/            # Componentes base (Button, Card, etc.)
-│   ├── Map/           # Componentes de mapas
-│   ├── Dashboard/     # Componentes del dashboard
-│   ├── Reports/       # Componentes de reportes
-│   └── Notifications/ # Componentes de notificaciones
-├── pages/             # Páginas principales
-├── store/             # Contextos globales
-├── hooks/             # Hooks personalizados
-├── services/          # Servicios de API
-└── utils/             # Utilidades
-```
-
-## 🚀 Scripts Disponibles
-
-```bash
-npm run dev          # Servidor de desarrollo
-npm run build        # Build de producción
-npm run preview      # Preview del build
-npm run lint         # Linting
-```
-
-## 🔧 Configuración
-
-### Variables de Entorno
 ```env
-VITE_API_URL=http://localhost:3000/api
-VITE_APP_NAME=Hydora
-VITE_APP_VERSION=1.0.0
+# Configuración del servidor
+PORT=3000
+NODE_ENV=development
+
+# Base de datos PostgreSQL
+DATABASE_URL="postgresql://username:password@localhost:5432/hydora"
+
+# JWT
+JWT_SECRET=your-super-secret-jwt-key-change-this-in-production
+JWT_EXPIRES_IN=24h
+
+# Configuración de la aplicación
+BCRYPT_ROUNDS=12
 ```
 
-### Backend
-Asegúrate de que el backend esté corriendo en `http://localhost:3000`
+## Estructura del Proyecto
 
-## 📝 Notas de Desarrollo
+```
+backend/
+├── src/
+│   ├── app.js              # Archivo principal de la aplicación
+│   ├── middleware/
+│   │   └── auth.js         # Middleware de autenticación
+│   └── routes/
+│       ├── auth.js         # Rutas de autenticación
+│       └── reports.js      # Rutas de reportes
+├── prisma/
+│   ├── schema.prisma       # Esquema de la base de datos
+│   └── prisma.config.js    # Configuración de Prisma
+├── package.json
+└── README.md
+```
 
-### Estado de Carga
-- Skeletons uniformes para todos los componentes
-- Estados de error con retry
-- Mensajes vacíos informativos
+## API Endpoints
 
-### Microinteracciones
-- Hover en tarjetas con elevación
-- Pulso en reportes críticos
-- Transiciones suaves en cambios de estado
+### Autenticación
 
-### Accesibilidad
-- Focus visible en todos los elementos
-- ARIA labels apropiados
-- Navegación por teclado completa
-- Soporte para screen readers
+- `POST /api/auth/register` - Registrar nuevo usuario
+- `POST /api/auth/login` - Iniciar sesión
+- `GET /api/auth/me` - Obtener información del usuario actual
 
-## 🤝 Contribución
+### Reportes
+
+- `POST /api/reports` - Crear nuevo reporte
+- `GET /api/reports` - Obtener reportes (con filtros y paginación)
+- `GET /api/reports/:id` - Obtener reporte específico
+- `PUT /api/reports/:id` - Actualizar reporte
+- `DELETE /api/reports/:id` - Eliminar reporte
+- `PATCH /api/reports/:id/status` - Cambiar estado (solo autoridades)
+- `GET /api/reports/stats/overview` - Estadísticas (solo autoridades y admins)
+
+## Roles y Permisos (RBAC)
+
+### 👤 CITIZEN (Ciudadano)
+- ✅ **Registrarse** en el sistema
+- ✅ **Crear reportes** con fotos y geolocalización
+- ✅ **Ver y editar** sus propios reportes
+- ✅ **Eliminar** sus propios reportes
+- ✅ **Ver el estado** de sus reportes
+- ❌ No puede cambiar el estado de reportes
+- ❌ No puede ver reportes de otros usuarios
+
+### 🏛️ AUTHORITY (Autoridad)
+- ✅ **Ver todos los reportes** del sistema
+- ✅ **Cambiar estado** de cualquier reporte
+- ✅ **Asignar reportes** a otros usuarios
+- ✅ **Recibir notificaciones** de nuevos reportes
+- ✅ **Acceder a detalles completos** con evidencia
+- ✅ **Ver estadísticas** y métricas
+- ❌ No puede eliminar reportes
+- ❌ No puede gestionar usuarios
+
+### 👑 ADMIN (Administrador)
+- ✅ **Acceso completo** a todas las funcionalidades
+- ✅ **Gestionar usuarios** (promover a autoridad, revocar)
+- ✅ **Ver métricas** y estadísticas avanzadas
+- ✅ **Configurar parámetros** globales
+- ✅ **Eliminar cualquier reporte**
+- ✅ **Cambiar roles** de usuarios
+
+## Notificaciones
+
+El sistema incluye notificaciones automáticas:
+
+- **Nuevos reportes**: Se notifica automáticamente a las autoridades
+- **Reportes de alta prioridad**: Alertas especiales para reportes URGENT/HIGH
+- **Cambios de estado**: Se notifica al creador cuando cambia el estado de su reporte
+
+Las notificaciones se registran en la consola del servidor (placeholder para futuras integraciones con email/SMS).
+
+## Documentación
+
+La documentación interactiva de la API está disponible en:
+- **Desarrollo**: http://localhost:3000/api-docs
+- **Producción**: https://tu-dominio.com/api-docs
+
+## Scripts Disponibles
+
+- `npm start` - Iniciar servidor en producción
+- `npm run dev` - Iniciar servidor en desarrollo con nodemon
+- `npm run seed` - Ejecutar seed para crear usuarios de prueba
+- `npx prisma generate` - Generar cliente de Prisma
+- `npx prisma migrate dev` - Ejecutar migraciones
+- `npx prisma studio` - Abrir interfaz visual de la base de datos
+
+## Base de Datos
+
+### Modelos
+
+#### User
+- `id` - Identificador único
+- `email` - Email único del usuario
+- `password` - Contraseña encriptada
+- `name` - Nombre completo
+- `role` - Rol del usuario (ADMIN, AUTHORITY, CITIZEN)
+- `createdAt` - Fecha de creación
+- `updatedAt` - Fecha de actualización
+
+#### Report
+- `id` - Identificador único
+- `title` - Título del reporte
+- `description` - Descripción detallada
+- `latitude` - Latitud de la ubicación
+- `longitude` - Longitud de la ubicación
+- `address` - Dirección opcional
+- `photos` - Array de URLs de fotos
+- `status` - Estado del reporte (PENDING, IN_PROGRESS, RESOLVED, REJECTED)
+- `priority` - Prioridad (LOW, MEDIUM, HIGH, URGENT)
+- `userId` - ID del usuario que creó el reporte
+- `createdAt` - Fecha de creación
+- `updatedAt` - Fecha de actualización
+
+## Usuarios de Prueba
+
+Después de ejecutar `npm run seed`, tendrás estos usuarios disponibles:
+
+| Email | Contraseña | Rol |
+|-------|------------|-----|
+| `admin@hydora.com` | `admin123` | ADMIN |
+| `autoridad@hydora.com` | `autoridad123` | AUTHORITY |
+| `ciudadano@hydora.com` | `ciudadano123` | CITIZEN |
+| `ana@ejemplo.com` | `ana123` | CITIZEN |
+
+## Ejemplos de Uso
+
+### 1. Login para obtener token
+```bash
+curl -X POST http://localhost:3000/api/auth/login \
+  -H "Content-Type: application/json" \
+  -d '{
+         "email": "ciudadano@hydora.com",
+    "password": "ciudadano123"
+  }'
+```
+
+### 2. Crear un reporte (con token)
+```bash
+curl -X POST http://localhost:3000/api/reports \
+  -H "Content-Type: application/json" \
+  -H "Authorization: Bearer TU_TOKEN_JWT" \
+  -d '{
+    "title": "Fuga de agua en la calle",
+    "description": "Hay una fuga importante en la esquina",
+    "latitude": 19.4326,
+    "longitude": -99.1332,
+    "address": "Av. Reforma 123",
+    "photos": "https://ejemplo.com/foto1.jpg,https://ejemplo.com/foto2.jpg",
+    "priority": "HIGH"
+  }'
+```
+
+### 3. Ver reportes (con filtros)
+```bash
+# Ver todos los reportes
+curl -H "Authorization: Bearer TU_TOKEN_JWT" \
+  http://localhost:3000/api/reports
+
+# Filtrar por estado
+curl -H "Authorization: Bearer TU_TOKEN_JWT" \
+  "http://localhost:3000/api/reports?status=PENDING"
+
+# Con paginación
+curl -H "Authorization: Bearer TU_TOKEN_JWT" \
+  "http://localhost:3000/api/reports?page=1&limit=5"
+```
+
+### 4. Cambiar estado de reporte (solo autoridades)
+```bash
+curl -X PATCH http://localhost:3000/api/reports/REPORT_ID/status \
+  -H "Content-Type: application/json" \
+  -H "Authorization: Bearer TU_TOKEN_JWT" \
+  -d '{
+    "status": "IN_PROGRESS",
+    "reason": "Equipo de mantenimiento asignado"
+  }'
+```
+
+### 5. Ver estadísticas (solo autoridades y admins)
+```bash
+curl -H "Authorization: Bearer TU_TOKEN_JWT" \
+  http://localhost:3000/api/reports/stats/overview
+```
+
+## Contribución
 
 1. Fork el proyecto
-2. Crea una rama para tu feature
-3. Commit tus cambios
-4. Push a la rama
+2. Crea una rama para tu feature (`git checkout -b feature/AmazingFeature`)
+3. Commit tus cambios (`git commit -m 'Add some AmazingFeature'`)
+4. Push a la rama (`git push origin feature/AmazingFeature`)
 5. Abre un Pull Request
 
-## 📄 Licencia
+## Licencia
 
-Este proyecto está bajo la Licencia MIT.
+Este proyecto está bajo la Licencia MIT. Ver el archivo `LICENSE` para más detalles. 
