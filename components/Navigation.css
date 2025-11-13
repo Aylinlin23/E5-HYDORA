@@ -1,0 +1,104 @@
+/* Left-side navigation styles for `Navigation.tsx` */
+
+:root {
+  /* local fallbacks mapped to theme variables */
+  --nav-width-expanded: var(--nav-width-expanded, 260px);
+  --nav-width-collapsed: var(--nav-width-collapsed, 72px);
+  --nav-bg: var(--nav-bg, #ffffff);
+  --nav-foreground: var(--nav-foreground, #06283d);
+  --nav-muted: var(--nav-muted, rgba(3,7,18,0.6));
+  --accent: var(--nav-accent, #1F6FEB);
+  --nav-shadow: var(--nav-shadow, 0 4px 10px rgba(31, 41, 55, 0.08));
+}
+
+.navigation {
+  position: fixed;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  width: var(--nav-width-expanded);
+  background: var(--nav-bg);
+  padding: var(--spacing-lg, 16px) var(--spacing-md, 12px);
+  box-shadow: var(--nav-shadow);
+  z-index: var(--z-fixed, 1030);
+  display: flex;
+  flex-direction: column;
+  transition: width 180ms ease, transform 180ms ease;
+  overflow: hidden;
+}
+
+.navigation.collapsed {
+  width: var(--nav-width-collapsed);
+}
+
+.navigation-container { display:flex; flex-direction:column; gap:18px; height:100%; }
+
+.navigation-top { display:flex; align-items:center; gap:8px; justify-content:space-between; }
+.navigation-brand { display:flex; gap:12px; align-items:center; }
+.navigation-logo svg { width:40px; height:40px; color:var(--accent); }
+.navigation-title { margin:0; font-size:var(--font-size-lg, 18px); font-weight:var(--font-weight-bold,700); color:var(--nav-foreground); }
+.navigation-subtitle { margin:0; font-size:var(--font-size-sm, 14px); color:var(--nav-muted); }
+
+.navigation-toggle {
+  background: transparent;
+  border: none;
+  padding: var(--spacing-sm, 8px);
+  border-radius: var(--border-radius-md, 8px);
+  cursor: pointer;
+  color: var(--nav-muted);
+}
+.navigation-toggle:hover { background: rgba(31,111,235,0.06); color: var(--nav-foreground); }
+
+.navigation-menu { display:flex; flex-direction:column; gap:8px; margin-top:var(--spacing-md,12px); }
+.navigation-link {
+  display:flex;
+  align-items:center;
+  gap:12px;
+  padding:10px 12px;
+  border-radius:var(--border-radius-lg,10px);
+  color:var(--nav-foreground);
+  text-decoration:none;
+  font-weight:600;
+  transition: background var(--transition-fast,120ms) ease, transform var(--transition-fast,120ms) ease;
+}
+.navigation-link-icon { width:20px; height:20px; display:inline-flex; align-items:center; justify-content:center; color:var(--accent); }
+.navigation-link-label { display:inline-block; }
+.navigation-link:hover { background: rgba(31,111,235,0.06); color: #022a54; transform: translateY(-1px); }
+.navigation-link.active { background: linear-gradient(90deg, rgba(37,99,235,0.12), rgba(14,165,140,0.06)); box-shadow: 0 8px 20px rgba(2,6,23,0.04); }
+
+.navigation-user { margin-top:auto; display:flex; flex-direction:column; gap:8px; }
+.navigation-user-info { display:flex; gap:12px; align-items:center; }
+.navigation-user-avatar { width:44px; height:44px; border-radius:var(--border-radius-md,10px); display:inline-flex; align-items:center; justify-content:center; font-weight:700; color:var(--color-text-inverse, #fff); }
+.navigation-user-avatar.admin { background: var(--color-error, #ef4444); }
+.navigation-user-avatar.authority { background: var(--color-warning, #f59e0b); }
+.navigation-user-avatar.citizen { background: var(--color-success, #10b981); }
+.navigation-user-name { margin:0; font-weight:600; }
+.navigation-user-email { margin:0; font-size:var(--font-size-sm, 14px); color:var(--nav-muted); }
+
+.navigation-logout { display:flex; align-items:center; gap:8px; background:transparent; border:none; color:var(--nav-muted); cursor:pointer; padding:var(--spacing-sm,8px); border-radius:var(--border-radius-md,8px); }
+.navigation-logout:hover { background: rgba(31,111,235,0.06); color:var(--nav-foreground); }
+
+/* Collapsed tweaks */
+.navigation.collapsed .navigation-title,
+.navigation.collapsed .navigation-subtitle,
+.navigation.collapsed .navigation-link-label,
+.navigation.collapsed .navigation-user-details,
+.navigation.collapsed .navigation-menu {
+  display: none;
+}
+.navigation.collapsed .navigation-link { justify-content:center; padding:8px; }
+
+/* Responsive: small screens hide fixed sidebar and become top nav via existing MainNavigation */
+@media (max-width: 900px) {
+  .navigation { position: relative; width: 100%; height: auto; box-shadow: none; padding: 12px; flex-direction: row; align-items:center; }
+  .navigation.collapsed { width: 100%; }
+  .navigation-container { flex-direction:row; align-items:center; gap:12px; }
+  .navigation-menu { display:none; }
+  .navigation-user { display:none; }
+}
+@media (max-width: 880px) {
+  .navigation { position:relative; width:100%; height:auto; border-right:none; border-bottom:1px solid rgba(2,6,23,0.06); }
+  .navigation-container { flex-direction:row; align-items:center; }
+  .navigation-menu { display:none; }
+  .navigation-user { display:none; }
+}

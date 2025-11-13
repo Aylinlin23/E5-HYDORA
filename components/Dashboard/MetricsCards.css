@@ -1,0 +1,189 @@
+/* MetricsCards.css - Estilos con nueva paleta aqua y azul claro */
+
+.metrics-cards {
+  margin-bottom: var(--spacing-3xl);
+}
+
+.metrics-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: var(--spacing-2xl);
+}
+
+.metric-card {
+  padding: var(--spacing-2xl);
+  border-radius: var(--border-radius-lg);
+  background: var(--color-secondary-50);
+  border: 1px solid var(--color-secondary-200);
+  transition: var(--transition-normal);
+  position: relative;
+  overflow: hidden;
+}
+
+.metric-card:hover {
+  transform: translateY(-4px);
+  box-shadow: var(--shadow-lg);
+}
+
+.metric-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 4px;
+  background: var(--color-primary);
+}
+
+.metric-card.critical::before {
+  background: var(--color-error);
+}
+
+.metric-icon {
+  width: 48px;
+  height: 48px;
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 16px;
+  background: var(--color-primary);
+  color: white;
+}
+
+.metric-icon svg {
+  width: 24px;
+  height: 24px;
+}
+
+/* Iconos específicos con colores psicológicos */
+.time-icon {
+  background: var(--color-primary); /* Azul - confianza y profesionalismo */
+}
+
+.critical-icon {
+  background: var(--color-error); /* Rojo - alerta y urgencia */
+}
+
+.assignment-icon {
+  background: var(--color-success); /* Verde - bienestar y progreso */
+}
+
+.efficiency-icon {
+  background: var(--color-primary); /* Azul - confianza en eficiencia */
+}
+
+.new-icon {
+  background: var(--color-success); /* Verde - nuevos comienzos */
+}
+
+.zones-icon {
+  background: var(--color-warning); /* Amarillo - atención a zonas */
+}
+
+.metric-content {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.metric-value {
+  font-size: 32px;
+  font-weight: 700;
+  color: var(--color-text-primary);
+  line-height: 1.2;
+  margin: 0;
+}
+
+.metric-label {
+  font-size: 14px;
+  color: var(--color-text-secondary);
+  font-weight: 500;
+  margin: 0;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.metric-trend {
+  font-size: 12px;
+  color: var(--color-text-tertiary);
+  margin: 0;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.metric-trend::before {
+  content: '';
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--color-success);
+}
+
+/* Indicadores de tendencia */
+.metric-trend.positive::before {
+  background: var(--color-success);
+}
+
+.metric-trend.negative::before {
+  background: var(--color-error);
+}
+
+.metric-trend.neutral::before {
+  background: var(--color-text-tertiary);
+}
+
+/* Animaciones sutiles */
+@keyframes pulse {
+  0%, 100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.8;
+  }
+}
+
+.metric-card.critical {
+  animation: pulse 2s ease-in-out infinite;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .metrics-grid {
+    grid-template-columns: 1fr;
+    gap: 16px;
+  }
+  
+  .metric-card {
+    padding: 20px;
+  }
+  
+  .metric-value {
+    font-size: 28px;
+  }
+  
+  .metric-icon {
+    width: 40px;
+    height: 40px;
+  }
+  
+  .metric-icon svg {
+    width: 20px;
+    height: 20px;
+  }
+}
+
+@media (max-width: 480px) {
+  .metric-card {
+    padding: 16px;
+  }
+  
+  .metric-value {
+    font-size: 24px;
+  }
+  
+  .metric-label {
+    font-size: 12px;
+  }
+}

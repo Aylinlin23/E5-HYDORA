@@ -1,0 +1,23 @@
+/* Layout helpers to offset main content when sidebar is fixed */
+:root {
+  --nav-width-expanded: var(--nav-width-expanded, 260px);
+  --nav-width-collapsed: var(--nav-width-collapsed, 72px);
+}
+
+.hydora-layout { min-height: 100vh; background-color: var(--color-background-primary, #F5F7FA); }
+.hydora-main {
+  transition: margin-left var(--transition-normal, 160ms) ease, padding 160ms ease;
+  min-height: 100vh;
+  /* leave additional inner spacing so content isn't jammed to the sidebar */
+  margin-left: calc(var(--nav-width-expanded) + 16px);
+  padding: calc(var(--container-padding, 20px) + 8px);
+  max-width: var(--container-max-width, 1200px);
+}
+
+/* when collapsed store in localStorage is used to add .nav-collapsed to body */
+body.nav-collapsed .hydora-main { margin-left: calc(var(--nav-width-collapsed) + 12px); }
+
+/* responsive: on small screens the sidebar becomes top/navigation so main should be full width */
+@media (max-width: 900px) {
+  .hydora-main { margin-left: 0; padding: 12px; }
+}
