@@ -1,0 +1,45 @@
+/* Hydora UI primitives using theme variables */
+:root {
+  --hydora-btn-padding-x: var(--button-padding-x, 14px);
+  --hydora-btn-padding-y: var(--button-padding-y, 10px);
+  --hydora-btn-radius: var(--button-border-radius, 8px);
+  --hydora-btn-font-size: var(--button-font-size, 14px);
+}
+
+.hydora-button {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: var(--hydora-btn-padding-y) var(--hydora-btn-padding-x);
+  border-radius: var(--hydora-btn-radius);
+  font-size: var(--hydora-btn-font-size);
+  font-weight: var(--button-font-weight, 500);
+  border: none;
+  cursor: pointer;
+  transition: all var(--transition-normal, 200ms) ease;
+  background: var(--color-primary-600, #1F6FEB);
+  color: var(--color-text-inverse, #fff);
+}
+.hydora-button.hydora-button--secondary { background: var(--color-secondary, #22C55E); }
+.hydora-button.hydora-button--outline { background: transparent; border: 1px solid var(--color-primary-600); color: var(--color-primary-600); }
+.hydora-button.hydora-button--ghost { background: transparent; color: var(--color-text-primary); }
+.hydora-button.hydora-button--disabled { opacity: 0.6; cursor: not-allowed; }
+
+.hydora-card {
+  background: var(--color-surface, #fff);
+  border-radius: var(--border-radius-md, 12px);
+  box-shadow: var(--shadow-md);
+  border: 1px solid var(--color-border-primary, rgba(0,0,0,0.04));
+  padding: var(--spacing-lg, 16px);
+}
+
+.hydora-typography { color: var(--color-text-primary); }
+.hydora-typography--h1 { font-size: var(--font-size-4xl, 36px); font-weight: 700; }
+.hydora-typography--h2 { font-size: var(--font-size-2xl, 24px); font-weight: 600; }
+.hydora-typography--h3 { font-size: var(--font-size-xl, 20px); font-weight: 600; }
+.hydora-typography--body { font-size: var(--font-size-base, 16px); }
+.hydora-typography--caption { font-size: var(--font-size-sm, 14px); color: var(--color-text-secondary); }
+
+.button-spinner { display:inline-flex; align-items:center; justify-content:center; }
+.button-icon { display:inline-flex; }
+.button-text { display:inline-flex; }
