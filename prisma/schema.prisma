@@ -15,14 +15,40 @@ model User {
   email     String   @unique
   password  String
   name      String
+  phone     String?
+  address   String?
   role      Role     @default(CITIZEN)
+  status    UserStatus @default(ACTIVE)
+  emailVerified Boolean @default(false)
+  emailVerificationToken String?
+  emailVerificationExpires DateTime?
+  resetPasswordToken String?
+  resetPasswordExpires DateTime?
+  invitedBy String? // ID del usuario que lo invitó
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 
   // Relaciones
   reports Report[]
+  reportComments ReportComment[]
+  reportHistory ReportHistory[]
+  createdUsers User[] @relation("UserInvitations")
+  invitedUser User? @relation("UserInvitations", fields: [invitedBy], references: [id])
 
   @@map("users")
+}
+
+model Invitation {
+  id        String   @id @default(cuid())
+  email     String
+  role      Role
+  token     String   @unique
+  expiresAt DateTime
+  used      Boolean  @default(false)
+  createdBy String
+  createdAt DateTime @default(now())
+
+  @@map("invitations")
 }
 
 model Report {
@@ -36,10 +62,14 @@ model Report {
   status      ReportStatus @default(PENDING)
   priority    Priority    @default(MEDIUM)
   statusHistory String    @default("[]") // JSON array de cambios de estado
+  assignedTo  String?     // ID del usuario asignado
+  estimatedResolution DateTime?
   
   // Relaciones
   userId      String
   user        User        @relation(fields: [userId], references: [id], onDelete: Cascade)
+  comments    ReportComment[]
+  history     ReportHistory[]
   
   // Timestamps
   createdAt   DateTime    @default(now())
@@ -48,10 +78,46 @@ model Report {
   @@map("reports")
 }
 
+model ReportComment {
+  id        String   @id @default(cuid())
+  message   String
+  reportId  String
+  userId    String
+  createdAt DateTime @default(now())
+
+  // Relaciones
+  report    Report    @relation(fields: [reportId], references: [id], onDelete: Cascade)
+  user      User      @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@map("report_comments")
+}
+
+model ReportHistory {
+  id          String   @id @default(cuid())
+  reportId    String
+  action      String   // CREATED, STATUS_CHANGED, ASSIGNED, etc.
+  description String
+  userId      String
+  createdAt   DateTime @default(now())
+
+  // Relaciones
+  report      Report   @relation(fields: [reportId], references: [id], onDelete: Cascade)
+  user        User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@map("report_history")
+}
+
 enum Role {
   ADMIN
   AUTHORITY
   CITIZEN
+}
+
+enum UserStatus {
+  ACTIVE
+  INACTIVE
+  SUSPENDED
+  PENDING_VERIFICATION
 }
 
 enum ReportStatus {
