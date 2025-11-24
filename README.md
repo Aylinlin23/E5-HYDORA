@@ -4,7 +4,7 @@ Plataforma web para reportar y gestionar problemas en la ciudad con roles difere
 
 ## 🚀 Inicio Rápido
 
-### Prerrequisitos
+### Pre-requisitos
 - Node.js 16+ 
 - npm o yarn
 
